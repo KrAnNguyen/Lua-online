@@ -1,0 +1,520 @@
+local Pastek = gg.prompt({"Please Enter License"},nil,{"text"})
+local Apik = "https://anotepad.com/notes/dsiwfa6a"
+local Get = (gg.makeRequest(Apik).content)
+KeyOnline = string.match(Get,("\"plaintext \">(.-)<"))
+if KeyOnline == nil then else
+if Pastek[1] ~= KeyOnline then
+return gg.alert("Password Wrong")
+end
+end
+local GetProgressInfo = gg.getTargetInfo()
+local GetVersionCode = GetProgressInfo.versionCode
+if GetVersionCode ~= "2019118071" then
+gg.alert("Download Free Fire 32Bit Obb 71")
+os.exit()
+gg.exit()
+end
+local SaveOFF = {}
+
+local function hex2tbl(hex)
+  local ret = {}
+  hex:gsub('%S%S', function(ch)
+    ret[#ret + 1] = ch
+    return ''
+  end)
+  return ret
+end
+
+local function getValues(lib, address, length)
+  local values = {}
+  for i = 1, length do
+    values[i] = {
+      address = lib + address + i - 1,
+      flags = gg.TYPE_BYTE
+    }
+  end
+  return gg.getValues(values)
+end
+
+local function setValues(lib, address, values)
+  local set = {}
+  for i = 1, #values do
+    set[i] = {
+      address = lib + address + i - 1,
+      value = values[i],
+      flags = gg.TYPE_BYTE
+    }
+  end
+  gg.setValues(set)
+  gg.clearResults()
+end
+
+function SetValue(a, b, c)
+  local set = {}
+  local lib = gg.getRangesList(a)[1].start
+  local Hex = hex2tbl(c)
+  
+  local V = {}
+  for i = 1, #Hex do
+    V[i] = tonumber(Hex[i], 16)
+    if V[i] > 127 then
+      V[i] = V[i] - 256
+    end
+  end
+  
+  if not SaveOFF[b] then
+    local Z = {}
+    for i = 1, #Hex do
+      Z[i] = {
+        address = lib + b + i - 1,
+        flags = gg.TYPE_BYTE
+      }
+    end
+    SaveOFF[b] = gg.getValues(Z)
+  end
+  
+  local R = getValues(lib, b, #Hex)
+  
+  if R[1].value == V[1] and R[3].value == V[3] then
+    gg.setValues(SaveOFF[b])
+  else
+    setValues(lib, b, V)
+  end
+end
+    SetValue("libil2cpp.so", 0x12f5d60, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19b8198, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19b902c, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19b9394, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19b9854, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19c8c78, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19c8e30, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19c8fa8, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19cd5a8, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x19e8934, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x5b18e8c, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x5b19150, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x4ff163c, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb1d0, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb26c, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb300, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb550, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb71c, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb7b4, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb984, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbbbe8, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbbfd8, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6a50814, "0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x4ff29b8,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x4ff163c,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x5b24100,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x5b26b14,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x5b26c4c,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6bbb304,"0000A0E31EFF2FE1")
+	SetValue("libil2cpp.so", 0x6a5bd78, "0000A0E31EFF2FE1")
+	
+  SetValue("libanogs.so", 0x336E44, "00 00 00 00")---
+  SetValue("libanogs.so", 0x336E6C, "00 00 00 00")---
+  SetValue("libanogs.so", 0x336EB8, "00 00 00 00")---
+  SetValue("libanogs.so", 0x336EC4, "00 00 00 00")---
+  SetValue("libanogs.so", 0x336EDC, "00 00 00 00")---
+  SetValue("libanogs.so", 0x336F04, "00 00 00 00")---
+  SetValue("libanogs.so", 0x3336F10, "00 00 00 00")---
+  
+  SetValue("libanogs.so", 0x37EAC38, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EAC20, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EAC0C, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EAC08, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EABF4, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EABDC, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EABCC, "00 00 00 00")---
+  SetValue("libanogs.so", 0x37EAB98, "00 00 00 00")---
+  
+  SetValue("libanogs.so", 0x740B01C, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B030, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B040, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B044, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B048, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B04C, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B050, "00 00 00 00")---
+  SetValue("libanogs.so", 0x740B06C, "00 00 00 00")---
+  
+  SetValue("libanogs.so", 0xF4A0040, "00 00 00 00")---
+  SetValue("libanogs.so", 0xF4A0044, "00 00 00 00")---
+  SetValue("libanogs.so", 0xF4A0048, "00 00 00 00")---
+  
+  SetValue("libanogs.so", 0x4448E048, "00 00 00 00")---
+  SetValue("libanogs.so", 0x4448E04C, "00 00 00 00")---
+  SetValue("libanogs.so", 0x4448E050, "00 00 00 00")---
+  SetValue("libanogs.so", 0x4448E068, "00 00 00 00")---
+  
+  SetValue("libanogs.so", 0x105578, "00 00 A0 E3")
+SetValue("libanogs.so", 0x10557C, "0B D0 A0 E1")
+SetValue("libanogs.so", 0x105580, "00 88 BD E8")
+SetValue("libanogs.so", 0x105584, "00 00 00 00")
+SetValue("libanogs.so", 0x105588, "00 00 00 00")
+SetValue("libanogs.so", 0x10558C, "00 00 00 00")
+SetValue("libanogs.so", 0x105590, "00 00 00 00")
+SetValue("libanogs.so", 0x105594, "00 00 00 00")
+SetValue("libanogs.so", 0x105598, "00 00 00 00")
+SetValue("libanogs.so", 0x10559C, "00 00 00 00")
+SetValue("libanogs.so", 0x1055A0, "00 00 00 00")
+SetValue("libanogs.so", 0x1055A4, "00 00 00 00")
+SetValue("libanogs.so", 0x1055A8, "00 00 00 00")
+SetValue("libanogs.so", 0x1055AC, "00 00 00 00")
+SetValue("libanogs.so", 0x1055B0, "00 00 00 00")
+SetValue("libanogs.so", 0x1055B4, "00 00 00 00")
+SetValue("libanogs.so", 0x1055B8, "00 00 00 00")
+SetValue("libanogs.so", 0x1055BC, "00 00 00 00")
+SetValue("libanogs.so", 0x1055C0, "00 00 00 00")
+SetValue("libanogs.so", 0x1055C4, "00 00 00 00")
+SetValue("libanogs.so", 0x1055C8, "00 00 00 00")
+SetValue("libanogs.so", 0x1055CC, "00 00 00 00")
+SetValue("libanogs.so", 0x1055D0, "00 00 00 00")
+SetValue("libanogs.so", 0x1055D4, "00 00 00 00")
+SetValue("libanogs.so", 0x1055D8, "00 00 00 00")
+SetValue("libanogs.so", 0x1055DC, "00 00 00 00")
+SetValue("libanogs.so", 0x1055E0, "00 00 00 00")
+SetValue("libanogs.so", 0x4F3EC, "00 00 E0 E3 1E FF 2F E1")
+SetValue("libanogs.so", 0x4EF30, "00 00 E0 E3 1E FF 2F E1")
+SetValue("libanogs.so", 0x4F3E0, "00 00 E0 E3 1E FF 2F E1")
+SetValue("libanogs.so", 0x4EFC0, "00 00 E0 E3 1E FF 2F E1")
+SetValue("libanogs.so", 0x4F068, "00 00 E0 E3 1E FF 2F E1")
+SetValue("libanogs.so", 0x4EFA8, "00 00 E0 E3 1E FF 2F E1")
+
+gg.setRanges(gg.REGION_CODE_APP | gg.REGION_ANONYMOUS)
+    
+    gg.searchNumber("h 00F0A0E1", gg.TYPE_BYTE)
+    local result = gg.getResults(100)
+    if #result > 0 then
+        gg.editAll("h 000020E3", gg.TYPE_BYTE)
+        gg.toast("Bypass kích hoạt ✔️")
+    else
+        gg.alert("Bypass bị lỗi ❌")
+    end
+
+    gg.clearResults()
+    gg.setRanges(gg.REGION_CODE_APP | gg.REGION_ANONYMOUS)
+    
+    gg.searchNumber("h 10FF2FE1", gg.TYPE_BYTE)
+    local result2 = gg.getResults(100)
+    if #result2 > 0 then
+        gg.editAll("h 000020E3", gg.TYPE_BYTE)
+        gg.toast("Bypass lớp thứ 2 kích hoạt ✔️")
+    else
+        gg.alert("Bypass lớp thứ 2 bị lỗi ❌")
+    end
+gg.setRanges(gg.REGION_VIDEO | gg.REGION_BAD)
+  gg.searchNumber("3.75000095367;3.75000166893;3.58931802e-29:13", 16, false, gg.SIGN_EQUAL, 0, -1, 0)
+  gg.getResults(9)
+  gg.editAll("99", 16)
+  gg.clearResults()
+  gg.setRanges(gg.REGION_CODE_APP)
+  gg.searchNumber("E3E04000h", 4)
+  gg.getResults(60500)
+  gg.editAll("E24DD058ED2D8B10h", 32)
+  gg.clearResults()
+  gg.setRanges(gg.REGION_CODE_APP)
+  gg.searchNumber("E3E01000h", 4)
+  gg.getResults(60500)
+  gg.editAll("E24DD058ED2D8B10h", 32)
+  gg.clearResults()
+gg.toast("Bypass loaded")
+function script()
+main = gg.choice({
+"Menu Aimbot🎯",
+"Menu Location📡",
+"Menu Risk⛔",
+"Reset Guest🔓",
+"Exit Script",
+},nil,' Phát triển bởi @hnlsm [Telegram] ')
+if main == nil then gg.toast('HNhat') else
+if main == 1 then aim() end
+if main == 2 then esp() end
+if main == 3 then risk() end
+if main == 4 then guest() end
+if main == 5 then thoat() end
+if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
+end end
+function aim()
+m = gg.multiChoice({
+'Aimbot Legit (Kéo tâm/Drag)',
+'Big head (Kéo tâm/Drag)',
+'Aimbot Exploit (Tự ghim/Auto)',
+'BACK',
+})
+if m == nil then gg.toast('HNhat') else
+if m [1] then hsb() end
+if m [2] then bighead() end
+if m [3] then hsbody() end
+if m [4] then gg.setVisible(true) end
+end end
+function hsb()
+gg.setRanges(32)
+gg.searchNumber("h1000000062006F006E0065005F004C006500660074005F0057006500610070006F006E00",1)
+gg.getResults(10000)
+gg.editAll("h1000000062006F006E0065005F0048006500610064000000000000000000000000000000",1)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h4C7B5ABD0A5766BB1E2148BA2AC2CF3B96FB283DE8B117BDE3997F3F0400803F0100803FFCFF7F3F",1)
+gg.getResults(10000)
+gg.editAll("hD10AC0BE16DC98BDBB8297B400000000BFB22F3F4332733666037B35721CC73F721CC73F721CC73F",1)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h23AAA6B8460ACD70",1)
+gg.getResults(10000)
+gg.editAll("h23AAA6B8B2F71FA4",1)
+gg.clearResults()
+gg.toast("Done ✅")
+end
+function bighead()
+gg.setRanges(32)
+gg.searchNumber("h 62 00 6F 00 6E 00 65 00 5F 00 4C 00 65 00 66 00 74 00 5F 00 57 00 65 00 61 00 70 00 6F 00 6E 00", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h 62 00 6F 00 6E 00 65 00 5F 00 4E 00 65 00 63 00 6B 00", gg.TYPE_BYTE)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h 23 AA A6 B8 46 0A CD 70", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h 23 AA A6 B8 B2 F7 1F A4", gg.TYPE_BYTE)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h 57 27 13 BE C5 26 27 BC 1F 02 81 B3 D6 2D 8B 29 73 4E D6 34 CB 5F 13 BE BA 55 7D 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h EC 51 B8 BD 3B 64 29 BD 1F 02 81 B3 D6 2D 8B 29 73 4E D6 34 CB 5F 13 BE BA 55 7D 3F 72 1C C7 3F 72 1C C7 3F 72 1C C7 3F", gg.TYPE_BYTE)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h 7B D5 FE BD 6B F1 AE BC DA 65 8F B3 38 C2 15 2A 1F CD 04 35 42 A6 36 BE 0D E5 7B 3F 01 00 80 3F 01 00 80 3F 00 00 80 3F", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h EC 51 B8 BD 3B 64 29 BD DA 65 8F B3 38 C2 15 2A 1F CD 04 35 42 A6 36 BE 0D E5 7B 3F 00 00 C0 3F 00 00 C0 3F 00 00 C0 3F", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Done ✅")
+end
+function hsbody()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber(';bone_Spine')
+gg.getResults(gg.getResultsCount())
+gg.editAll(';bone_Head1', gg.TYPE_WORD)
+gg.clearResults()
+gg.searchNumber('-0.04462028295', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-0.03999999911', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('-0.03881515563', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('0.05000000075', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.07869631797;0.99689865112;1;1;1::17', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-1.5', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.98958933353F;1;1;1::17', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-1.5', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Done ✅")
+end
+function esp()
+gps = gg.multiChoice({
+'Antenna Head',
+'Antenna Hand',
+'Antenna Neck',
+'Antenna Shoulder',
+'Back',
+})
+if gps == nil then gg.toast('HNhat') else
+if gps [1] then head() end
+if gps [2] then hand() end
+if gps [3] then neck() end
+if gps [4] then shoulder() end
+if gps [5] then gg.setVisible(true) end
+end end
+function head()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('5.9762459e-7;1::5 ', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('7.5538861e-7;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('done ✅')
+end
+function hand()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('-0.02980032004;1;0.48141112924::9', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.09043131769;1;0.14753369987::9', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Done ✅')
+end
+function neck()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('7.15025408e-8;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('3.93490495e-7;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Done ✅')
+end
+function shoulder()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('-0.30576485395;0.01430506539;-0.73534429073;1::13', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('-0.2212036103;0.03038031235;-0.76885718107;1::13', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Done ✅')
+end
+function risk()
+x = gg.multiChoice({
+'Joystick Speed X10',
+'Speed Legit X2',
+'No Recoil',
+'Fast Reload',
+'Aimlock',
+'WallHack',
+'Stone Hack',
+'Fov Camera',
+'BACK',
+})
+if x == nil then gg.toast('HNhat') else
+if x [1] then speed10() end
+if x [2] then speed2() end
+if x [3] then norc() end
+if x [4] then fsrl() end
+if x [5] then lock() end
+if x [6] then wall() end
+if x [7] then stone() end
+if x [8] then cam() end
+if x [9] then gg.setVisible(true) end
+end end
+function speed10()
+SetValue("libil2cpp.so",0x135abb4,"0100A0E31EFF2FE1")
+SetValue("libil2cpp.so",0x5d8c55c,"0100A0E31EFF2FE1")
+gg.toast("Done ✅")
+end
+function speed2()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("2.80259693e-44F ;1.20000004768F;0.18000000715F;1.40129846e-45F", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1) gg.refineNumber("1.20000004768", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(500, nil, nil, nil, nil, nil,nil, nil, nil)
+gg.editAll("20.780", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Done ✅")
+gg.alert("Hãy dùng tay không nó mới tăng được tốc độ \n\nUse hand it will increase speed running")
+end
+function norc()
+SetValue("libil2cpp.so",0x24f084c,"1EFF2FE1")
+gg.toast("Done ✅")
+end
+function fsrl()
+SetValue("libil2cpp.so",0x16b5b1c,"01 00 00 E1 1E FF 2F E1")
+gg.toast("Done ✅")
+end
+function lock()
+SetValue("libil2cpp.so",0x16e67dc,"0000A0E31EFF2FE1")
+gg.toast("Done ✅")
+end
+function wall()
+SetValue("libunity.so",0xb7e6a8,"000000000E0000EA0800A0E1000050E300000000")
+SetValue("libunity.so",0xb87d10,"000000EA")
+gg.toast("Done ✅")
+end
+function stone()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("-6.11142992e27", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.getResultsCount()
+gg.getResults(gg.getResultsCount())
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Done ✅")
+end
+function cam()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("1;0;0;-1;0;-1;0;0;1;0;0;0;0;1::53", gg.TYPE_FLOAT)
+gg.refineNumber("1", gg.TYPE_FLOAT)
+gg.getResults(3)
+gg.editAll("1;1;1.9", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber("2;0;0;-1;0;-1;0;0;1;0;0;0;0;1::53", gg.TYPE_FLOAT)
+gg.refineNumber("1", gg.TYPE_FLOAT)
+gg.getResults(2)
+gg.editAll("1;1.9", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Done ✅')
+end
+function guest()
+gg.getRangesList("libil2cpp.so")
+gg.setValues({ -- table(fbcfd49)
+ [1] = { -- table(81a464e)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d4,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = '01r',
+ },
+ [2] = { -- table(2efe36f)
+  ['address'] = gg.getRangesList('libil2cpp.so')[1].start+ 0x4d772d5,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = '00r',
+ },
+ [3] = { -- table(e49d87c)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d6,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = 'A0r',
+ },
+ [4] = { -- table(14f2505)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d7,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = 'E3r',
+ },
+ [5] = { -- table(2d8795a)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d8,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = '1Er',
+ },
+ [6] = { -- table(c1478b)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d9,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = 'FFr',
+ },
+ [7] = { -- table(69a0068)
+  ['address'] = gg.getRangesList('libil2cpp.so')[1].start+ 0x4d772da,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = '2Fr',
+ },
+ [8] = { -- table(4220c81)
+  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772db,
+  ['flags'] = 1, -- gg.TYPE_BYTE
+  ['value'] = 'E1r',
+ },
+})
+end
+function thoat()
+  print("Goodbye see you later")
+  print("                            ")
+  print("                           ")
+  print("Thank You For Using My Script ")
+  print("Credit: HNhat")
+  print("Telegram: t.me/lsModgaming (Loadstring Mod)                     ")
+  os.exit()
+end
+while true do if gg.isVisible() then gg.setVisible(false) script() end end
