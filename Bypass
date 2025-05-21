@@ -243,11 +243,7 @@ gg.toast('Done âœ…')
 end
 function risk()
 x = gg.multiChoice({
-'Joystick Speed X10',
 'Speed Legit X2',
-'No Recoil',
-'Fast Reload',
-'Aimlock',
 'WallHack',
 'Stone Hack',
 'Fov Camera',
