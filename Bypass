@@ -79,8 +79,8 @@ function script()
 main = gg.choice({
 "Menu Aimbot🎯",
 "Menu Location📡",
-"Menu Risk⛔",
-"Reset Guest🔓",
+"Menu Risk⛔ (Some functions working)",
+"Reset Guest🔓(In progress)",
 "Exit Script",
 },nil,' Phát triển bởi @hnlsm [Telegram] ')
 if main == nil then gg.toast('HNhat') else
@@ -245,13 +245,13 @@ end
 function risk()
 x = gg.multiChoice({
 'Joystick Speed X10',
-'Speed Legit X2',
+'Speed Legit X2 (Working)',
 'No Recoil',
 'Fast Reload',
 'Aimlock',
 'WallHack',
-'Stone Hack',
-'Fov Camera',
+'Stone Hack (Working)',
+'Fov Camera (Working)',
 'BACK',
 })
 if x == nil then gg.toast('HNhat') else
