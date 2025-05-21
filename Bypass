@@ -93,13 +93,13 @@ end end
 function aim()
 m = gg.multiChoice({
 'Aimbot Legit (KÃ©o tÃ¢m/Drag)',
-'Big head (KÃ©o tÃ¢m/Drag)',
-'Aimbot Exploit (Tá»± ghim/Auto)',
+'Ainbot Chest Headshot (Tá»± ghim/Auto)',
+'Aimbot Body Headshot (Tá»± ghim/Auto)',
 'BACK',
 })
 if m == nil then gg.toast('HNhat') else
 if m [1] then hsb() end
-if m [2] then bighead() end
+if m [2] then chead() end
 if m [3] then hsbody() end
 if m [4] then gg.setVisible(true) end
 end end
@@ -121,26 +121,59 @@ gg.editAll("h23AAA6B8B2F71FA4",1)
 gg.clearResults()
 gg.toast("Done âœ…")
 end
-function bighead()
-gg.setRanges(32)
-gg.searchNumber("h 62 00 6F 00 6E 00 65 00 5F 00 4C 00 65 00 66 00 74 00 5F 00 57 00 65 00 61 00 70 00 6F 00 6E 00", gg.TYPE_BYTE)
+function chead()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("hdc5239bd27c18b3cc0d0f8b9", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
-gg.editAll("h 62 00 6F 00 6E 00 65 00 5F 00 4E 00 65 00 63 00 6B 00", gg.TYPE_BYTE)
+gg.editAll("hdc52393e27c18b3cc0d0f8bc", gg.TYPE_BYTE)
 gg.clearResults()
-gg.setRanges(32)
-gg.searchNumber("h 23 AA A6 B8 46 0A CD 70", gg.TYPE_BYTE)
+gg.searchNumber("h6371b0bd909874bb", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
-gg.editAll("h 23 AA A6 B8 B2 F7 1F A4", gg.TYPE_BYTE)
+gg.editAll("hcddc7944909874b9", gg.TYPE_BYTE)
 gg.clearResults()
-gg.setRanges(32)
-gg.searchNumber("h 57 27 13 BE C5 26 27 BC 1F 02 81 B3 D6 2D 8B 29 73 4E D6 34 CB 5F 13 BE BA 55 7D 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F", gg.TYPE_BYTE)
+gg.searchNumber("h7bf96cbd583409bbb060beba", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
-gg.editAll("h EC 51 B8 BD 3B 64 29 BD 1F 02 81 B3 D6 2D 8B 29 73 4E D6 34 CB 5F 13 BE BA 55 7D 3F 72 1C C7 3F 72 1C C7 3F 72 1C C7 3F", gg.TYPE_BYTE)
+gg.editAll("hcddc7944583409bbb060beba", gg.TYPE_BYTE)
 gg.clearResults()
-gg.setRanges(32)
-gg.searchNumber("h 7B D5 FE BD 6B F1 AE BC DA 65 8F B3 38 C2 15 2A 1F CD 04 35 42 A6 36 BE 0D E5 7B 3F 01 00 80 3F 01 00 80 3F 00 00 80 3F", gg.TYPE_BYTE)
+gg.searchNumber("h541b87bd90c6d7ba805499b9", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
-gg.editAll("h EC 51 B8 BD 3B 64 29 BD DA 65 8F B3 38 C2 15 2A 1F CD 04 35 42 A6 36 BE 0D E5 7B 3F 00 00 C0 3F 00 00 C0 3F 00 00 C0 3F", gg.TYPE_BYTE)
+gg.editAll("hcddc794490c6d7ba805499b9", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h710287bd90fdd7ba40189839", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc794490fdd7ba40189839", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hccf86cbd40d2ceb95864be3a", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc794440d2ceb95864be3a", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h76FCDBBC7C5E8B3A508BBB3A", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC79447C5E8B3A508BBB3A", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h801395BC30FF37BB00FD783B", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794430FF37BB00FD783B", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h1F93DBBC90BF843A20A6BBBA", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794490BF843A20A6BBBA", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hEFA300BE40B99239204E07BA", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794440B99239204E07BA", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hBC19FDBDB0E3A93A804223B9", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h42E05643B0E3A93A804223B9", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h724B723D7283053E00000000180427BD0084A737000080B1", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h724B723D7283053E000000002300003D0000003D0AD73EBC", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h7D1A89BD50269F3B", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h0000704100007041", gg.TYPE_BYTE)
 gg.clearResults()
 gg.toast("Done âœ…")
 end
@@ -246,6 +279,7 @@ x = gg.multiChoice({
 'Speed Legit X2',
 'WallHack',
 'Stone Hack',
+'Invisible gloo',
 'Fov Camera',
 'BACK',
 })
@@ -253,8 +287,9 @@ if x == nil then gg.toast('HNhat') else
 if x [1] then speed2() end
 if x [2] then wall() end
 if x [3] then stone() end
-if x [4] then cam() end
-if x [5] then gg.setVisible(true) end
+if x [4] then keo() end
+if x [5] then cam() end
+if x [6] then gg.setVisible(true) end
 end end
 function speed2()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -282,6 +317,19 @@ gg.getResults(gg.getResultsCount())
 gg.editAll("0", gg.TYPE_FLOAT)
 gg.clearResults()
 gg.toast("Done âœ…")
+end
+function keo()
+gg.setRanges(gg.REGION_ANONYMOUS)
+local searchValue = "7209065;6357095;6619245;6357039;7536755;7536745;6357108;7602286;7602281;7143525;6881327;6619235;6357111;7077996;6422623;7209077;6619243;114:69"
+local editValue = ";effects/vfx_pet/vfx_petskill_robot"
+gg.searchNumber(searchValue, gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+local results = gg.getResults(99999)
+if #results > 0 then
+gg.editAll(editValue, gg.TYPE_DWORD)
+gg.toast("🛡️ keo tàn hình bật ✅")
+else 
+    gg.alert("❌ không tìm thấy kết quả")
+    end
 end
 function cam()
 gg.setRanges(gg.REGION_ANONYMOUS)
