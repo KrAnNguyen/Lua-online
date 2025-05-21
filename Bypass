@@ -7,7 +7,6 @@ if Pastek[1] ~= KeyOnline then
 return gg.alert("Password Wrong")
 end
 end
-
 local SaveOFF = {}
 
 local function hex2tbl(hex)
@@ -77,25 +76,25 @@ function SetValue(a, b, c)
 end
 function script()
 main = gg.choice({
-"Menu Aimbot🎯",
-"Menu Location📡",
-"Menu Risk⛔ (Some functions working)",
-"Reset Guest🔓(In progress)",
+"Menu AimbotðŸŽ¯",
+"Menu LocationðŸ“¡",
+"Menu Riskâ›”",
+G.."Speed Hack",
 "Exit Script",
-},nil,' Phát triển bởi @hnlsm [Telegram] ')
+},nil,' PhÃ¡t triá»ƒn bá»Ÿi @hnlsm [Telegram] ')
 if main == nil then gg.toast('HNhat') else
 if main == 1 then aim() end
 if main == 2 then esp() end
 if main == 3 then risk() end
-if main == 4 then guest() end
+if main == 4 then speed() end
 if main == 5 then thoat() end
 if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
-'Aimbot Legit (Kéo tâm/Drag)',
-'Big head (Kéo tâm/Drag)',
-'Aimbot Exploit (Tự ghim/Auto)',
+'Aimbot Legit (KÃ©o tÃ¢m/Drag)',
+'Big head (KÃ©o tÃ¢m/Drag)',
+'Aimbot Exploit (Tá»± ghim/Auto)',
 'BACK',
 })
 if m == nil then gg.toast('HNhat') else
@@ -120,7 +119,7 @@ gg.searchNumber("h23AAA6B8460ACD70",1)
 gg.getResults(10000)
 gg.editAll("h23AAA6B8B2F71FA4",1)
 gg.clearResults()
-gg.toast("Done ✅")
+gg.toast("Done âœ…")
 end
 function bighead()
 gg.setRanges(32)
@@ -143,7 +142,7 @@ gg.searchNumber("h 7B D5 FE BD 6B F1 AE BC DA 65 8F B3 38 C2 15 2A 1F CD 04 35 4
 gg.getResults(gg.getResultsCount())
 gg.editAll("h EC 51 B8 BD 3B 64 29 BD DA 65 8F B3 38 C2 15 2A 1F CD 04 35 42 A6 36 BE 0D E5 7B 3F 00 00 C0 3F 00 00 C0 3F 00 00 C0 3F", gg.TYPE_BYTE)
 gg.clearResults()
-gg.toast("Done ✅")
+gg.toast("Done âœ…")
 end
 function hsbody()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -169,7 +168,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('-1.5', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done ✅")
+gg.toast("Done âœ…")
 end
 function esp()
 gps = gg.multiChoice({
@@ -198,7 +197,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('done ✅')
+gg.toast('done âœ…')
 end
 function hand()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -212,7 +211,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done ✅')
+gg.toast('Done âœ…')
 end
 function neck()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -226,7 +225,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done ✅')
+gg.toast('Done âœ…')
 end
 function shoulder()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -240,61 +239,44 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done ✅')
+gg.toast('Done âœ…')
 end
 function risk()
 x = gg.multiChoice({
 'Joystick Speed X10',
-'Speed Legit X2 (Working)',
+'Speed Legit X2',
 'No Recoil',
 'Fast Reload',
 'Aimlock',
 'WallHack',
-'Stone Hack (Working)',
-'Fov Camera (Working)',
+'Stone Hack',
+'Fov Camera',
 'BACK',
 })
 if x == nil then gg.toast('HNhat') else
-if x [1] then speed10() end
-if x [2] then speed2() end
-if x [3] then norc() end
-if x [4] then fsrl() end
-if x [5] then lock() end
-if x [6] then wall() end
-if x [7] then stone() end
-if x [8] then cam() end
-if x [9] then gg.setVisible(true) end
+if x [1] then speed2() end
+if x [2] then wall() end
+if x [3] then stone() end
+if x [4] then cam() end
+if x [5] then gg.setVisible(true) end
 end end
-function speed10()
-SetValue("libil2cpp.so",0x135abb4,"0100A0E31EFF2FE1")
-SetValue("libil2cpp.so",0x5d8c55c,"0100A0E31EFF2FE1")
-gg.toast("Done ✅")
-end
 function speed2()
 gg.setRanges(gg.REGION_ANONYMOUS)
 gg.searchNumber("2.80259693e-44F ;1.20000004768F;0.18000000715F;1.40129846e-45F", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1) gg.refineNumber("1.20000004768", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
 gg.getResults(500, nil, nil, nil, nil, nil,nil, nil, nil)
 gg.editAll("20.780", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done ✅")
-gg.alert("Hãy dùng tay không nó mới tăng được tốc độ \n\nUse hand it will increase speed running")
-end
-function norc()
-SetValue("libil2cpp.so",0x24f084c,"1EFF2FE1")
-gg.toast("Done ✅")
-end
-function fsrl()
-SetValue("libil2cpp.so",0x16b5b1c,"01 00 00 E1 1E FF 2F E1")
-gg.toast("Done ✅")
-end
-function lock()
-SetValue("libil2cpp.so",0x16e67dc,"0000A0E31EFF2FE1")
-gg.toast("Done ✅")
+gg.toast("Done âœ…")
+gg.alert("HÃ£y dÃ¹ng tay khÃ´ng nÃ³ má»›i tÄƒng Ä‘Æ°á»£c tá»‘c Ä‘á»™ \n\nUse hand it will increase speed running")
 end
 function wall()
-SetValue("libunity.so",0xb7e6a8,"000000000E0000EA0800A0E1000050E300000000")
-SetValue("libunity.so",0xb87d10,"000000EA")
-gg.toast("Done ✅")
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("-6.11142992e27", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.getResultsCount()
+gg.getResults(gg.getResultsCount())
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Done âœ…")
 end
 function stone()
 gg.setRanges(gg.REGION_CODE_APP)
@@ -303,7 +285,7 @@ gg.getResultsCount()
 gg.getResults(gg.getResultsCount())
 gg.editAll("0", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done ✅")
+gg.toast("Done âœ…")
 end
 function cam()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -317,52 +299,34 @@ gg.refineNumber("1", gg.TYPE_FLOAT)
 gg.getResults(2)
 gg.editAll("1;1.9", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done ✅')
+gg.toast('Done âœ…')
 end
-function guest()
-gg.getRangesList("libil2cpp.so")
-gg.setValues({ -- table(fbcfd49)
- [1] = { -- table(81a464e)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d4,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = '01r',
- },
- [2] = { -- table(2efe36f)
-  ['address'] = gg.getRangesList('libil2cpp.so')[1].start+ 0x4d772d5,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = '00r',
- },
- [3] = { -- table(e49d87c)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d6,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = 'A0r',
- },
- [4] = { -- table(14f2505)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d7,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = 'E3r',
- },
- [5] = { -- table(2d8795a)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d8,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = '1Er',
- },
- [6] = { -- table(c1478b)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772d9,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = 'FFr',
- },
- [7] = { -- table(69a0068)
-  ['address'] = gg.getRangesList('libil2cpp.so')[1].start+ 0x4d772da,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = '2Fr',
- },
- [8] = { -- table(4220c81)
-  ['address'] =  gg.getRangesList('libil2cpp.so')[1].start+0x4d772db,
-  ['flags'] = 1, -- gg.TYPE_BYTE
-  ['value'] = 'E1r',
- },
-})
+G = " OFF "
+function speed()
+  if G == " OFF " then
+    gg["setVisible"](false)
+    gg["setRanges"](gg.REGION_ANONYMOUS)
+    gg["getResults"](gg["getResultsCount"]())
+    gg["clearResults"]()
+    gg["setRanges"](gg.REGION_ANONYMOUS)
+    gg["searchNumber"]("0.0329~0.033", gg.TYPE_FLOAT)
+    gg["refineNumber"]("0.0329~0.033", gg.TYPE_FLOAT)
+    t10 = gg["getResults"](gg["getResultsCount"]())
+    gg["setValues"](t10)
+    gg["editAll"]("0.061", gg.TYPE_FLOAT)
+    gg["clearResults"]()
+    gg["toast"]("Speed X10âœ…")
+    G = " ON "
+  elseif G == " ON " then
+    gg["setValues"](t10)
+    gg["editAll"]("0.0329~0.033", gg.TYPE_DWORD)
+    gg["toast"]("Speed OffâŒ")
+    gg["clearResults"]()
+    gg["clearResults"]()
+    gg["processResume"]()
+    gg["setVisible"](false)
+    G = " OFF "
+  end
 end
 function thoat()
   print("Goodbye see you later")
