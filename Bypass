@@ -76,12 +76,12 @@ function SetValue(a, b, c)
 end
 function script()
 main = gg.choice({
-"Menu AimbotðŸŽ¯",
-"Menu LocationðŸ“¡",
-"Menu Riskâ›”",
+"Menu Aimbot🎯",
+"Menu Location📡",
+"Menu Risk⛔",
 G.."Speed Hack",
 "Exit Script",
-},nil,' PhÃ¡t triá»ƒn bá»Ÿi @hnlsm [Telegram] ')
+},nil,' Phát triển bởi @hnlsm [Telegram] ')
 if main == nil then gg.toast('HNhat') else
 if main == 1 then aim() end
 if main == 2 then esp() end
@@ -92,9 +92,9 @@ if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
-'Aimbot Legit (KÃ©o tÃ¢m/Drag)',
-'Ainbot Chest Headshot (Tá»± ghim/Auto)',
-'Aimbot Body Headshot (Tá»± ghim/Auto)',
+'Aimbot Legit (Kéo tâm/Drag)',
+'Ainbot Chest Headshot (Tự ghim/Auto)',
+'Aimbot Body Headshot (Tự ghim/Auto)',
 'BACK',
 })
 if m == nil then gg.toast('HNhat') else
@@ -119,7 +119,7 @@ gg.searchNumber("h23AAA6B8460ACD70",1)
 gg.getResults(10000)
 gg.editAll("h23AAA6B8B2F71FA4",1)
 gg.clearResults()
-gg.toast("Done âœ…")
+gg.toast("Done ✅")
 end
 function chead()
 gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
@@ -175,7 +175,7 @@ gg.searchNumber("h7D1A89BD50269F3B", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
 gg.editAll("h0000704100007041", gg.TYPE_BYTE)
 gg.clearResults()
-gg.toast("Done âœ…")
+gg.toast("Done ✅")
 end
 function hsbody()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -201,7 +201,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('-1.5', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done âœ…")
+gg.toast("Done ✅")
 end
 function esp()
 gps = gg.multiChoice({
@@ -230,7 +230,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('done âœ…')
+gg.toast('done ✅')
 end
 function hand()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -244,7 +244,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done âœ…')
+gg.toast('Done ✅')
 end
 function neck()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -258,7 +258,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done âœ…')
+gg.toast('Done ✅')
 end
 function shoulder()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -272,7 +272,7 @@ gg.refineNumber('1', gg.TYPE_FLOAT)
 gg.getResults(gg.getResultsCount())
 gg.editAll('3000', gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done âœ…')
+gg.toast('Done ✅')
 end
 function risk()
 x = gg.multiChoice({
@@ -297,8 +297,8 @@ gg.searchNumber("2.80259693e-44F ;1.20000004768F;0.18000000715F;1.40129846e-45F"
 gg.getResults(500, nil, nil, nil, nil, nil,nil, nil, nil)
 gg.editAll("20.780", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done âœ…")
-gg.alert("HÃ£y dÃ¹ng tay khÃ´ng nÃ³ má»›i tÄƒng Ä‘Æ°á»£c tá»‘c Ä‘á»™ \n\nUse hand it will increase speed running")
+gg.toast("Done ✅")
+gg.alert("Hãy dùng tay không nó mới tăng được tốc độ \n\nUse hand it will increase speed running")
 end
 function wall()
 gg.setRanges(gg.REGION_CODE_APP)
@@ -307,7 +307,7 @@ gg.getResultsCount()
 gg.getResults(gg.getResultsCount())
 gg.editAll("0", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done âœ…")
+gg.toast("Done ✅")
 end
 function stone()
 gg.setRanges(gg.REGION_CODE_APP)
@@ -316,7 +316,7 @@ gg.getResultsCount()
 gg.getResults(gg.getResultsCount())
 gg.editAll("0", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast("Done âœ…")
+gg.toast("Done ✅")
 end
 function keo()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -326,9 +326,9 @@ gg.searchNumber(searchValue, gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
 local results = gg.getResults(99999)
 if #results > 0 then
 gg.editAll(editValue, gg.TYPE_DWORD)
-gg.toast("🛡️ keo tàn hình bật ✅")
+gg.toast("✅ Keo tàn hình bật")
 else 
-    gg.alert("❌ không tìm thấy kết quả")
+    gg.alert("❌ Không tìm thấy kết quả")
     end
 end
 function cam()
@@ -343,7 +343,7 @@ gg.refineNumber("1", gg.TYPE_FLOAT)
 gg.getResults(2)
 gg.editAll("1;1.9", gg.TYPE_FLOAT)
 gg.clearResults()
-gg.toast('Done âœ…')
+gg.toast('Done ✅')
 end
 G = " OFF "
 function speed()
@@ -359,12 +359,12 @@ function speed()
     gg["setValues"](t10)
     gg["editAll"]("0.061", gg.TYPE_FLOAT)
     gg["clearResults"]()
-    gg["toast"]("Speed X10âœ…")
+    gg["toast"]("Speed X10✅")
     G = " ON "
   elseif G == " ON " then
     gg["setValues"](t10)
     gg["editAll"]("0.0329~0.033", gg.TYPE_DWORD)
-    gg["toast"]("Speed OffâŒ")
+    gg["toast"]("Speed Off❌")
     gg["clearResults"]()
     gg["clearResults"]()
     gg["processResume"]()
