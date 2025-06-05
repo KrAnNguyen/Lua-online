@@ -92,17 +92,27 @@ if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
+'Aim awm (Bật lúc nào cũng được)',
 'Nhẹ tâm (Sảnh/Đăng nhập)',
 'Headshot mỗi bụng (Trong trận)',
 'Headshot dang tay (Đăng nhập)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
-if m [1] then hsb() end
-if m [2] then chead() end
-if m [3] then hsbody() end
-if m [4] then gg.setVisible(true) end
+if m [1] then awm() end
+if m [2] then hsb() end
+if m [3] then chead() end
+if m [4] then hsbody() end
+if m [5] then gg.setVisible(true) end
 end end
+function awm()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33 33 13 40 00 00 B0 3F 00 00 80 4F 01", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
 function hsb()
 gg.setRanges(32)
 gg.searchNumber("h1000000062006F006E0065005F004C006500660074005F0057006500610070006F006E00",1)
