@@ -92,7 +92,7 @@ if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
-'Aim awm (Bật lúc nào cũng được)',
+'Aim awm (Trong trận)',
 'Nhẹ tâm (Sảnh/Đăng nhập)',
 'Headshot mỗi bụng (Trong trận)',
 'Headshot dang tay (Đăng nhập)',
