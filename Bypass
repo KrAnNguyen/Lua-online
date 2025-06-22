@@ -92,24 +92,36 @@ if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
-'Aim awm (Trong trận)',
+'Aim awm (Đăng nhập/Sảnh)',
+'Aim awm V2 (Đăng nhập/Sảnh)',
 'Nhẹ tâm (Sảnh/Đăng nhập)',
 'Headshot mỗi bụng (Trong trận)',
 'Headshot dang tay (Đăng nhập)',
+'Không giật (Tự động chạy)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
 if m [1] then awm() end
-if m [2] then hsb() end
-if m [3] then chead() end
-if m [4] then hsbody() end
-if m [5] then gg.setVisible(true) end
+if m [2] then awm2() end
+if m [3] then hsb() end
+if m [4] then chead() end
+if m [5] then hsbody() end
+if m [6] then norecoil() end
+if m [7] then gg.setVisible(true) end
 end end
 function awm()
 gg.setRanges(gg.REGION_ANONYMOUS)
 gg.searchNumber("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01", gg.TYPE_BYTE)
 gg.getResults(gg.getResultsCount())
 gg.editAll("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33 33 13 40 00 00 B0 3F 00 00 80 4F 01", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function awm2()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("h FF FF FF FF 07 97 03 00 FA 98 03 00 FF FF FF FF 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h FF FF FF FF 07 97 03 00 FA 98 03 00 FF FF FF FF 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33 33 13 40 00 00 B0 3F 00 00 80 3F 01", gg.TYPE_BYTE)
 gg.clearResults()
 gg.toast("Xong ✅")
 end
@@ -213,6 +225,140 @@ gg.editAll('-1.5', gg.TYPE_FLOAT)
 gg.clearResults()
 gg.toast("Xong ✅")
 end
+function norecoil()
+end
+
+function CheckProcess()
+    local Regions = gg.getRangesList()
+    local LastAddress = Regions[#Regions]['end']
+    return (LastAddress >> 32) ~= 0
+end
+
+function GetClassName(Letter)
+    local RegionsToSearch = {
+        [1] = gg.REGION_C_ALLOC,
+        [2] = gg.REGION_OTHER,
+        [3] = gg.REGION_ANONYMOUS
+    }
+    local ClassName = {}
+    for i, Ranges in ipairs(RegionsToSearch) do
+        gg.setRanges(Ranges)
+        gg.loadResults(Letter)
+        gg.searchPointer(0)
+        ClassName = gg.getResults(gg.getResultsCount())
+        gg.clearResults()
+        if #ClassName > 0 then
+            break
+        end
+    end
+    if #ClassName == 0 then
+        print('Không tìm thấy kết quả... Vui lòng vào game rồi bật script\n\n No results found... Please activate in game')
+        os.exit()
+    end
+    return ClassName
+end
+
+local x64 = CheckProcess()
+local MyOffset = ''
+
+function SearchClassName(Text, Offset64, Offset32, Type)
+    gg.clearResults(true)
+    gg.clearList()
+    gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+    local Metadata = gg.getRangesList('global-metadata.dat')
+    local Region_Start, Region_End
+
+    if Metadata and #Metadata > 0 then
+        Region_Start = Metadata[1]['start']
+        Region_End = Metadata[1]['end']
+    else
+        Region_Start = 0
+        Region_End = -1
+    end
+
+    gg.searchNumber(':' .. string.char(0) .. Text .. string.char(0), gg.TYPE_BYTE)
+    local Letters = gg.getResults(2)
+    local ClassFirstLetter = {Letters[2]}
+    gg.clearResults(true)
+    gg.loadResults(ClassFirstLetter)
+    gg.searchPointer(0)
+    local ClassNamePointer = GetClassName(ClassFirstLetter)
+    gg.setRanges(gg.REGION_ANONYMOUS)
+    local Resultss = {}
+
+    for i, v in ipairs(ClassNamePointer) do
+        local ClassPointer = {}
+        table.insert(ClassPointer, {
+            address = ClassNamePointer[i].address - (x64 and 0x10 or 0x8),
+            flags = gg.TYPE_DWORD
+        })
+        ClassPointer = gg.getValues(ClassPointer)
+        gg.clearResults()
+        gg.loadResults(ClassPointer)
+        gg.searchPointer(0)
+        Resultss = gg.getResults(gg.getResultsCount())
+        if #Resultss > 0 then
+            break
+        end
+    end
+
+    if #Resultss == 0 then
+        print('Không tìm thấy kết quả... Vui lòng vào game rồi bật script \n\n No results found... Please activate in game')
+        os.exit()
+    end
+
+    MyOffset = MyOffset .. (x64 and Offset64 or Offset32)
+    gg.addListItems(Resultss)
+    gg.clearResults()
+    local GetResultsFromSearch = {}
+
+    for j, instance in ipairs(Resultss) do
+        table.insert(GetResultsFromSearch, {
+            address = instance.address + MyOffset,
+            flags = Type,
+        })
+    end
+
+    GetResultsFromSearch = gg.getValues(GetResultsFromSearch)
+    gg.loadResults(GetResultsFromSearch)
+    gg.clearList()
+end
+
+SearchClassName('OOIPMACFIFL', '0x134', '0xF0', gg.TYPE_DWORD)
+local AllResults = gg.getResults(gg.getResultsCount())
+local validRecoilValues = {30, 20, 7, 4, 5, 12, 6, 2, 8, 3, 50, 42, 100, 10, 35, 22, 80, 60, 18, 25, 9, 16}
+local Recoil = {}
+
+for Number, Value in ipairs(AllResults) do
+    for _, validValue in ipairs(validRecoilValues) do
+        if Value.value == validValue then
+            local Valueee = gg.getValues({{address = Value.address + 8, flags = gg.TYPE_FLOAT}})
+            for i, v in pairs(Valueee) do
+                local Valueee2 = gg.getValues({{address = v.address + 8, flags = gg.TYPE_FLOAT}})
+                for b, c in pairs(Valueee2) do
+                    if v.value == c.value then
+                        Recoil[#Recoil + 1] = {address = Value.address + 8, flags = gg.TYPE_FLOAT}
+                    end
+                end
+            end
+            break -- Exit the loop once a valid recoil value is found
+        end
+    end
+end
+
+-- Check if Recoil has valid addresses before editing
+if #Recoil == 0 then
+    print("No recoil addresses found.")
+else
+    gg.clearResults(gg.getResultsCount())
+    gg.clearResults(nil)
+    gg.loadResults(Recoil)
+    gg.getResults(gg.getResultsCount())
+    gg.editAll('2', gg.TYPE_FLOAT) 
+end
+
+gg.clearResults(true)
+
 function esp()
 gps = gg.multiChoice({
 'Antenna Đầu (Đăng nhập)',
