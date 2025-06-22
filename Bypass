@@ -97,7 +97,7 @@ m = gg.multiChoice({
 'Nhẹ tâm (Sảnh/Đăng nhập)',
 'Headshot mỗi bụng (Trong trận)',
 'Headshot dang tay (Đăng nhập)',
-'Không giật (Tự động chạy)',
+'Không giật/ đạn thẳng (Tự động chạy)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
