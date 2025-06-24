@@ -94,9 +94,9 @@ function aim()
 m = gg.multiChoice({
 'Aim awm (Đăng nhập/Sảnh)',
 'Aim awm V2 (Đăng nhập/Sảnh)',
-'Nhẹ tâm (Sảnh/Đăng nhập)',
+'Nhẹ tâm (RISK)',
 'Headshot mỗi bụng (Trong trận)',
-'Headshot dang tay (Đăng nhập)',
+'Headshot dang tay (RISK)',
 'Không giật/ đạn thẳng (Tự động chạy)',
 'Quay về',
 })
