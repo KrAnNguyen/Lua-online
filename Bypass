@@ -37,7 +37,7 @@ main = gg.choice({
 "Menu Aim🎯",
 "Menu Định vị📡",
 "Menu Bạo⛔",
-G.."Ghost 👻",
+G.."Ghost 👻 (32 bit)",
 "Thoát Script",
 },nil,' Phát triển bởi @hnlsm [Telegram] \n\n Script Protected: Working ✅')
 if main == nil then gg.toast('HNhat') else
