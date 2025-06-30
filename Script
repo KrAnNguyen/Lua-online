@@ -111,7 +111,7 @@ function EXIT()
 end
 
 function Main()
-  local menu = gg.choice({
+  local menu = gg.multiChoice({
     (balaAtivada and " Magic Bullet ✅" or "🎯Magic Bullet "),
     (ghostAtivado and "👻 Ghost ✅" or "👻 Ghost ❌"),
     (wallAtivado and "🧱 Wall Stone ✅" or "🧱 Wall Stone ❌"),
