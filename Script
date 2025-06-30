@@ -1,137 +1,493 @@
-gg.sleep(2000)
-gg.alert("Script loading online...")
-gg.sleep(4000)
-gg.toast("Almost there...")
-gg.sleep(2000)
-function TBO(FF,H4X,IND)
-  local info = gg.getTargetInfo()
-  local localpack = info.nativeLibraryDir
-  local t = gg.getRangesList(localpack.."/lib"..FF)
-  for _, __ in pairs(t) do
-    local t = gg.getValues({
-      {address = __.start, flags = gg.TYPE_DWORD},
-      {address = __.start + 0x12, flags = gg.TYPE_WORD}
-    })
-    if t[1].value == 0x464C457F then 
-      H4X = __["start"] + tonumber(H4X, 16)
-    end
-  end
-  assert(H4X ~= nil,"[rwmem]:address is nil.")
-  _rw = {}
-  if type(IND) == "string" then
-    local Byte = {}
-    IND:gsub("..", function(x)
-      Byte[#Byte + 1] = x
-      _rw[#Byte] = {address = (H4X - 1) + #Byte, flags = gg.TYPE_BYTE, value = tonumber(x,16)}
-    end)
-    gg.setValues(_rw)
-  elseif type(IND) == "number" then
-    local result = ""
-    for i = 1, IND do
-      _rw[i] = {address = (H4X - 1) + i, flags = gg.TYPE_BYTE}
-    end
-    for _, v in ipairs(gg.getValues(_rw)) do
-      result = result .. string.format("%02X", v.value & 0xFF)
-    end
-    return result
-  end
+local GetProgressInfo = gg.getTargetInfo()
+local GetVersionCode = GetProgressInfo.versionCode
+if GetVersionCode ~= "2019118399" then
+gg.alert("Download Free Fire 64Bit Obb 99")
+os.exit()
+gg.exit()
 end
 
--- Variáveis de estado
-balaAtivada = false
-ghostAtivado = false
-wallAtivado = false
+    local GetKey = "https://t.me/lsModgaming"
+    local API = "https://anotepad.com/notes/275mb7bw"
+    local savedKeyFile = "saved_key.txt"
+ 
+ 
+    function ReadSavedKey()
+        local file = io.open(savedKeyFile, "r")
+        if file then
+            local savedKey = file:read("*a")
+            file:close()
+            return savedKey
+        end
+        return nil
+    end
+    
+    
+    function SaveKey(key)
+        local file = io.open(savedKeyFile, "w")
+        if file then
+            file:write(key)
+            file:close()
+            gg.toast("Lưu Key Thành Công!")
+        end
+    end
 
-function A1() -- GHOST
-  if ghostAtivado == false then
+
+    function DeleteKey()
+        os.remove(savedKeyFile)
+        gg.toast("Đã xoá key!")
+    end
+    
+    
+    local GetData = (gg.makeRequest(API).content)
+    if not GetData then
+        gg.alert("Lỗi khi lấy dữ liệu!")
+        return
+    end
+    
+   
+
+    KeyOnline = string.match(GetData, "Key:%s*([%w%d]+)")
+    ExpireDate = string.match(GetData, "ExpireDate:%s*(%d%d%d%d%-%d%d%-%d%d)")
+    
+    
+
+    if KeyOnline == nil then
+        gg.alert("Error fetching key! Kiểm tra lại format trong page note.")
+        return
+    end
+    if ExpireDate == nil then
+        gg.alert("Error fetching expire date! Kiểm tra lại format trong page note.")
+        return
+    end
+    
+    
+    local CurrentDate = os.date("%Y-%m-%d")
+    if CurrentDate > ExpireDate then
+        gg.alert("Script đã hết hạn!\nExpire Date: " .. ExpireDate)
+        os.exit()
+    end
+    
+    
+    local savedKey = ReadSavedKey()
+    if savedKey and savedKey == KeyOnline then
+        gg.toast("Tự động đăng nhập thành công!\nExpire Date: " .. ExpireDate)
+    else
+       
+        local Pastek = gg.prompt({"Vui lòng nhập key để vào script"}, nil, {"text"})
+        if Pastek == nil or Pastek[1] == "" then
+            gg.alert("Key sai hoặc hết hạn!")
+            return
+        end
+    
+        if Pastek[1] ~= KeyOnline then
+            local choice = gg.choice({"Copy Link", "OK"}, nil, "Sai mật khẩu!\nVui lòng vô nhóm để lấy key:\n"..GetKey)
+            if choice == 1 then
+                gg.copyText(GetKey)
+                gg.alert("Link đã được sao chép vào clipboard!")
+            end
+            return
+        else
+            
+            local saveChoice = gg.choice({"Lưu key", "Không Lưu"}, nil, "Đăng nhập thành công!\nBạn có muốn lưu key cho lần sau dùng không?")
+            if saveChoice == 1 then
+                SaveKey(Pastek[1])
+            end
+        end
+    end
+    
+
+    if gg.choice({"Xoá key đã lưu", "Tiếp tục đăng nhập"}, nil, "Quản lý key đã lưu") == 1 then
+        DeleteKey()
+    end
+    
+local SaveOFF = {}
+
+local function hex2tbl(hex)
+  local ret = {}
+  hex:gsub('%S%S', function(ch)
+    ret[#ret + 1] = ch
+    return ''
+  end)
+  return ret
+end
+
+local function getValues(lib, address, length)
+  local values = {}
+  for i = 1, length do
+    values[i] = {
+      address = lib + address + i - 1,
+      flags = gg.TYPE_BYTE
+    }
+  end
+  return gg.getValues(values)
+end
+
+local function setValues(lib, address, values)
+  local set = {}
+  for i = 1, #values do
+    set[i] = {
+      address = lib + address + i - 1,
+      value = values[i],
+      flags = gg.TYPE_BYTE
+    }
+  end
+  gg.setValues(set)
+  gg.clearResults()
+end
+
+function SetValue(a, b, c)
+  local set = {}
+  local lib = gg.getRangesList(a)[1].start
+  local Hex = hex2tbl(c)
+  
+  local V = {}
+  for i = 1, #Hex do
+    V[i] = tonumber(Hex[i], 16)
+    if V[i] > 127 then
+      V[i] = V[i] - 256
+    end
+  end
+  
+  if not SaveOFF[b] then
+    local Z = {}
+    for i = 1, #Hex do
+      Z[i] = {
+        address = lib + b + i - 1,
+        flags = gg.TYPE_BYTE
+      }
+    end
+    SaveOFF[b] = gg.getValues(Z)
+  end
+  
+  local R = getValues(lib, b, #Hex)
+  
+  if R[1].value == V[1] and R[3].value == V[3] then
+    gg.setValues(SaveOFF[b])
+  else
+    setValues(lib, b, V)
+  end
+end
+SetValue("libil2cpp.so", 0x2a6f46c, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2a72fc4, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x707f7b0, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x667fe04, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ad8934, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ad7338, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ad94ac, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ad9f4c, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ada114, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2addaa8, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2add6bc, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2add7c0, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ade224, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2ae41ec, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2d0e5b0, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2d11114, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2d0d8e8, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2d0e5b0, "00 00 80 D2 C0 03 5F D6")
+SetValue("libil2cpp.so", 0x2d0d6ec, "00 00 80 D2 C0 03 5F D6")
+gg.toast("Bypass loaded!")
+
+function script()
+main = gg.choice({
+"Menu Aim🎯",
+"Menu Định vị📡",
+"Menu Bạo⛔",
+G.."Ghost 👻",
+"Thoát Script",
+},nil,' Phát triển bởi @hnlsm [Telegram] \n\n Script Protected: Working ✅')
+if main == nil then gg.toast('HNhat') else
+if main == 1 then aim() end
+if main == 2 then esp() end
+if main == 3 then risk() end
+if main == 4 then speed() end
+if main == 5 then thoat() end
+if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
+end end
+function aim()
+m = gg.multiChoice({
+'Aim awm (Sảnh/Đăng nhập)',
+'Nhẹ tâm (Sảnh/Đăng nhập)',
+'Headshot mỗi bụng (Trong trận)',
+'Headshot dang tay (Sảnh/Đăng nhập)',
+'Quay về',
+})
+if m == nil then gg.toast('HNhat') else
+if m [1] then awm() end
+if m [2] then hsb() end
+if m [3] then chead() end
+if m [4] then hsbody() end
+if m [5] then gg.setVisible(true) end
+end end
+function awm()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 80 3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 33 33 13 40 00 00 B0 3F 00 00 80 4F 01", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function hsb()
+gg.setRanges(32)
+gg.searchNumber("h1000000062006F006E0065005F004C006500660074005F0057006500610070006F006E00",1)
+gg.getResults(10000)
+gg.editAll("h1000000062006F006E0065005F0048006500610064000000000000000000000000000000",1)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h4C7B5ABD0A5766BB1E2148BA2AC2CF3B96FB283DE8B117BDE3997F3F0400803F0100803FFCFF7F3F",1)
+gg.getResults(10000)
+gg.editAll("hD10AC0BE16DC98BDBB8297B400000000BFB22F3F4332733666037B35721CC73F721CC73F721CC73F",1)
+gg.clearResults()
+gg.setRanges(32)
+gg.searchNumber("h23AAA6B8460ACD70",1)
+gg.getResults(10000)
+gg.editAll("h23AAA6B8B2F71FA4",1)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function chead()
+gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_OTHER)
+gg.searchNumber("hdc5239bd27c18b3cc0d0f8b9", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hdc52393e27c18b3cc0d0f8bc", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h6371b0bd909874bb", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc7944909874b9", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h7bf96cbd583409bbb060beba", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc7944583409bbb060beba", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h541b87bd90c6d7ba805499b9", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc794490c6d7ba805499b9", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h710287bd90fdd7ba40189839", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc794490fdd7ba40189839", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hccf86cbd40d2ceb95864be3a", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hcddc794440d2ceb95864be3a", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h76FCDBBC7C5E8B3A508BBB3A", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC79447C5E8B3A508BBB3A", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h801395BC30FF37BB00FD783B", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794430FF37BB00FD783B", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h1F93DBBC90BF843A20A6BBBA", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794490BF843A20A6BBBA", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hEFA300BE40B99239204E07BA", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("hCDDC794440B99239204E07BA", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("hBC19FDBDB0E3A93A804223B9", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h42E05643B0E3A93A804223B9", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h724B723D7283053E00000000180427BD0084A737000080B1", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h724B723D7283053E000000002300003D0000003D0AD73EBC", gg.TYPE_BYTE)
+gg.clearResults()
+gg.searchNumber("h7D1A89BD50269F3B", gg.TYPE_BYTE)
+gg.getResults(gg.getResultsCount())
+gg.editAll("h0000704100007041", gg.TYPE_BYTE)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function hsbody()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber(';bone_Spine')
+gg.getResults(gg.getResultsCount())
+gg.editAll(';bone_Head1', gg.TYPE_WORD)
+gg.clearResults()
+gg.searchNumber('-0.04462028295', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-0.03999999911', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('-0.03881515563', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('0.05000000075', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.07869631797;0.99689865112;1;1;1::17', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-1.5', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.98958933353F;1;1;1::17', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('-1.5', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function esp()
+gps = gg.multiChoice({
+'Antenna Đầu (Đăng nhập)',
+'Antenna Tay (Đăng nhập)',
+'Antenna Cổ (Đăng nhập)',
+'Antenna Vai (Đăng nhập)',
+'Quay về',
+})
+if gps == nil then gg.toast('HNhat') else
+if gps [1] then head() end
+if gps [2] then hand() end
+if gps [3] then neck() end
+if gps [4] then shoulder() end
+if gps [5] then gg.setVisible(true) end
+end end
+function head()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('5.9762459e-7;1::5 ', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('7.5538861e-7;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Xong ✅')
+end
+function hand()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('-0.02980032004;1;0.48141112924::9', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('0.09043131769;1;0.14753369987::9', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Xong ✅')
+end
+function neck()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('7.15025408e-8;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('3.93490495e-7;1::5', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Xong ✅')
+end
+function shoulder()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber('-0.30576485395;0.01430506539;-0.73534429073;1::13', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber('-0.2212036103;0.03038031235;-0.76885718107;1::13', gg.TYPE_FLOAT)
+gg.refineNumber('1', gg.TYPE_FLOAT)
+gg.getResults(gg.getResultsCount())
+gg.editAll('3000', gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Xong ✅')
+end
+function risk()
+x = gg.multiChoice({
+'Tăng tốc độ X2 (Sảnh/Đăng nhập)',
+'Xuyên tường (Sảnh/Đăng nhập)',
+'Xuyên đá (Sảnh/Đăng nhập)',
+'Xuyên keo (Sảnh/Đăng nhập)',
+'Camera xa (Sảnh/Đăng nhập)',
+'Quay vể',
+})
+if x == nil then gg.toast('HNhat') else
+if x [1] then speed2() end
+if x [2] then wall() end
+if x [3] then stone() end
+if x [4] then keo() end
+if x [5] then cam() end
+if x [6] then gg.setVisible(true) end
+end end
+function speed2()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("2.80259693e-44F ;1.20000004768F;0.18000000715F;1.40129846e-45F", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1) gg.refineNumber("1.20000004768", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(500, nil, nil, nil, nil, nil,nil, nil, nil)
+gg.editAll("20.780", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Xong ✅")
+gg.alert("Hãy dùng tay không nó mới tăng được tốc độ \n\nUse hand it will increase speed running")
+end
+function wall()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("-6.11142992e27", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.getResultsCount()
+gg.getResults(gg.getResultsCount())
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function stone()
+gg.setRanges(gg.REGION_CODE_APP)
+gg.searchNumber("-6.11142992e27", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1, 0)
+gg.getResultsCount()
+gg.getResults(gg.getResultsCount())
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast("Xong ✅")
+end
+function keo()
+gg.setRanges(gg.REGION_ANONYMOUS)
+local searchValue = "7209065;6357095;6619245;6357039;7536755;7536745;6357108;7602286;7602281;7143525;6881327;6619235;6357111;7077996;6422623;7209077;6619243;114:69"
+local editValue = ";effects/vfx_pet/vfx_petskill_robot"
+gg.searchNumber(searchValue, gg.TYPE_DWORD, false, gg.SIGN_EQUAL, 0, -1)
+local results = gg.getResults(99999)
+if #results > 0 then
+gg.editAll(editValue, gg.TYPE_DWORD)
+gg.toast("✅ Keo tàn hình bật")
+else 
+    gg.alert("❌ Không tìm thấy kết quả")
+    end
+end
+function cam()
+gg.setRanges(gg.REGION_ANONYMOUS)
+gg.searchNumber("1;0;0;-1;0;-1;0;0;1;0;0;0;0;1::53", gg.TYPE_FLOAT)
+gg.refineNumber("1", gg.TYPE_FLOAT)
+gg.getResults(3)
+gg.editAll("1;1;1.9", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.searchNumber("2;0;0;-1;0;-1;0;0;1;0;0;0;0;1::53", gg.TYPE_FLOAT)
+gg.refineNumber("1", gg.TYPE_FLOAT)
+gg.getResults(2)
+gg.editAll("1;1.9", gg.TYPE_FLOAT)
+gg.clearResults()
+gg.toast('Xong ✅')
+end
+G = " OFF "
+function speed()
+  if G == " OFF " then
     TBO("il2cpp.so","2277190","0000A0E31EFF2FE1")
     gg.toast("👻 Ghost ✅")
-    ghostAtivado = true
-  else
+    G = " ON "
+  elseif G == " ON " then
     TBO("il2cpp.so","2277190","0100A0E31EFF2FE1")
     gg.toast("👻 Ghost ❌")
-    ghostAtivado = false
+    G = " OFF "
   end
 end
-
-function A2()
-  if wallAtivado == false then
-    TBO("unity.so","B74F28","00000000")
-    TBO("unity.so","B74F38","00000000")
-    TBO("unity.so","B74F68","00000000")
-    gg.toast("🧱 Wall Stone ✅")
-    wallAtivado = true
-  else
-    TBO("unity.so","B74F28","57FEFFCA")
-    TBO("unity.so","B74F38","53FEFFCA")
-    TBO("unity.so","B74F68","47FEFFCA")
-    gg.toast("🧱 Wall Stone ❌")
-    wallAtivado = false
-  end
-end
-
-function A3()
-  if balaAtivada == false then
-    TBO("unity.so","63AA3C","00000000562505E300000000552545E3011A96ED014A9DED000A23EE00000000025A9DED00000000022A25EE030A8DED041A8DED052A8DED480095E5011080E2026080E211F253E716F252E7A33F83E0A22F82E0833083E0031041E00C308DE2822082E0000183E0022046E0011183E0004A90ED022183E00000000000000000413AB1EEC00AB5EE10FAF1EE00000000C01AB5EE0000000010FAF1EE00000000431AB04E113A95EDC01AB4EE10FAF1EE00000000000000000000000000000000")
-    gg.toast("✨ Magic ✅")
-    balaAtivada = true
-  else
-    gg.toast("✨ Magic ❌")
-    balaAtivada = false
-  end
-end
-
-function AntenaMao()
-  gg.setRanges(gg.REGION_ANONYMOUS)
-
-  gg.searchNumber('-0.02980032004;1;0.48141112924::9', gg.TYPE_FLOAT)
-  gg.refineNumber('1', gg.TYPE_FLOAT)
-  local r = gg.getResults(gg.getResultsCount())
-  if #r > 0 then
-    gg.editAll('3000', gg.TYPE_FLOAT)
-  end
-  gg.clearResults()
-
-  gg.searchNumber('0.09043131769;1;0.14753369987::9', gg.TYPE_FLOAT)
-  gg.refineNumber('1', gg.TYPE_FLOAT)
-  local r2 = gg.getResults(gg.getResultsCount())
-  if #r2 > 0 then
-    gg.editAll('3000', gg.TYPE_FLOAT)
-  end
-  gg.clearResults()
-
-  gg.toast("📡 Antena tay")
-end
-
-function EXIT()
-  gg.setVisible(true)
-  print("Bai bai")
-  gg.skipRestoreState()
+function thoat()
+  print("Goodbye see you later")
+  print("                            ")
+  print("                           ")
+  print("Thank You For Using My Script ")
+  print("Credit: HNhat")
+  print("Telegram: t.me/lsModgaming (Loadstring Mod)                     ")
   os.exit()
 end
-
-function Main()
-  local menu = gg.multiChoice({
-    (balaAtivada and " Magic Bullet ✅" or "🎯Magic Bullet "),
-    (ghostAtivado and "👻 Ghost ✅" or "👻 Ghost ❌"),
-    (wallAtivado and "🧱 Wall Stone ✅" or "🧱 Wall Stone ❌"),
-    "📡 Antena Tay",
-    "❌ exit"
-  }, nil, "Checking status Online📡 \n\n Script Protected: Working ✅ \n Root detector: Found Root❌")
-
-  if menu == nil then return end
-
-  if menu[1] then A3() end
-  if menu[2] then A2() end
-  if menu[3] then A1() end
-  if menu[4] then AntenaMao() end
-  if menu[5] then EXIT() end
-end
-
-while true do
-  if gg.isVisible(true) then
-    gg.setVisible(false)
-    Main()
-  end
-  gg.sleep(100)
-end
+while true do if gg.isVisible() then gg.setVisible(false) script() end end
