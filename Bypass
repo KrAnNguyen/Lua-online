@@ -55,8 +55,8 @@ m = gg.multiChoice({
 'Nhẹ tâm (RISK⛔)',
 'Headshot mỗi bụng (Trong trận)',
 'Headshot dang tay (RISK⛔)',
-'Không giật (Không cần chạy)',
-'Magic (Obb 96 - 32 Bit)',
+'Đạn thẳng (Không cần chạy)',
+'Magic bullet (Obb 96 - 32 Bit)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
