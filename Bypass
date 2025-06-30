@@ -1,87 +1,45 @@
-local Pastek = gg.prompt({"Please Enter License"},nil,{"text"})
-local Apik = "https://anotepad.com/notes/dsiwfa6a"
-local Get = (gg.makeRequest(Apik).content)
-KeyOnline = string.match(Get,("\"plaintext \">(.-)<"))
-if KeyOnline == nil then else
-if Pastek[1] ~= KeyOnline then
-return gg.alert("Password Wrong")
-end
-end
-local SaveOFF = {}
-
-local function hex2tbl(hex)
-  local ret = {}
-  hex:gsub('%S%S', function(ch)
-    ret[#ret + 1] = ch
-    return ''
-  end)
-  return ret
-end
-
-local function getValues(lib, address, length)
-  local values = {}
-  for i = 1, length do
-    values[i] = {
-      address = lib + address + i - 1,
-      flags = gg.TYPE_BYTE
-    }
-  end
-  return gg.getValues(values)
-end
-
-local function setValues(lib, address, values)
-  local set = {}
-  for i = 1, #values do
-    set[i] = {
-      address = lib + address + i - 1,
-      value = values[i],
-      flags = gg.TYPE_BYTE
-    }
-  end
-  gg.setValues(set)
-  gg.clearResults()
-end
-
-function SetValue(a, b, c)
-  local set = {}
-  local lib = gg.getRangesList(a)[1].start
-  local Hex = hex2tbl(c)
-  
-  local V = {}
-  for i = 1, #Hex do
-    V[i] = tonumber(Hex[i], 16)
-    if V[i] > 127 then
-      V[i] = V[i] - 256
+function TBO(FF,H4X,IND)
+  local info = gg.getTargetInfo()
+  local localpack = info.nativeLibraryDir
+  local t = gg.getRangesList(localpack.."/lib"..FF)
+  for _, __ in pairs(t) do
+    local t = gg.getValues({
+      {address = __.start, flags = gg.TYPE_DWORD},
+      {address = __.start + 0x12, flags = gg.TYPE_WORD}
+    })
+    if t[1].value == 0x464C457F then 
+      H4X = __["start"] + tonumber(H4X, 16) -- converter hex string para number
     end
   end
-  
-  if not SaveOFF[b] then
-    local Z = {}
-    for i = 1, #Hex do
-      Z[i] = {
-        address = lib + b + i - 1,
-        flags = gg.TYPE_BYTE
-      }
+  assert(H4X ~= nil,"[rwmem]:address is nil.")
+  _rw = {}
+  if type(IND) == "string" then
+    local Byte = {}
+    IND:gsub("..", function(x)
+      Byte[#Byte + 1] = x
+      _rw[#Byte] = {address = (H4X - 1) + #Byte, flags = gg.TYPE_BYTE, value = tonumber(x,16)}
+    end)
+    gg.setValues(_rw)
+  elseif type(IND) == "number" then
+    local result = ""
+    for i = 1, IND do
+      _rw[i] = {address = (H4X - 1) + i, flags = gg.TYPE_BYTE}
     end
-    SaveOFF[b] = gg.getValues(Z)
-  end
-  
-  local R = getValues(lib, b, #Hex)
-  
-  if R[1].value == V[1] and R[3].value == V[3] then
-    gg.setValues(SaveOFF[b])
-  else
-    setValues(lib, b, V)
+    for _, v in ipairs(gg.getValues(_rw)) do
+      result = result .. string.format("%02X", v.value & 0xFF)
+    end
+    return result
   end
 end
+
 function script()
 main = gg.choice({
 "Menu Aim🎯",
 "Menu Định vị📡",
 "Menu Bạo⛔",
-G.."Speed Hack",
+G.."Ghost 👻",
 "Thoát Script",
-},nil,' Phát triển bởi @hnlsm [Telegram] ')
+},nil,' Phát triển bởi @hnlsm [Telegram] \n\n Script Protected: Working ✅')
 if main == nil then gg.toast('HNhat') else
 if main == 1 then aim() end
 if main == 2 then esp() end
@@ -92,12 +50,13 @@ if main == 6 then gg.setVisible(true) os.exit(print('HNhat')) end
 end end
 function aim()
 m = gg.multiChoice({
+'Aimlock awm (Đăng nhập/Sảnh)',
 'Aim awm (Đăng nhập/Sảnh)',
-'Aim awm V2 (Đăng nhập/Sảnh)',
-'Nhẹ tâm (RISK)',
+'Nhẹ tâm (RISK⛔)',
 'Headshot mỗi bụng (Trong trận)',
-'Headshot dang tay (RISK)',
-'Không giật/ đạn thẳng (Tự động chạy)',
+'Headshot dang tay (RISK⛔)',
+'Không giật (Không cần chạy)',
+'Magic (Obb 96 - 32 Bit)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
@@ -107,7 +66,8 @@ if m [3] then hsb() end
 if m [4] then chead() end
 if m [5] then hsbody() end
 if m [6] then norecoil() end
-if m [7] then gg.setVisible(true) end
+if m [7] then magic() end
+if m [8] then gg.setVisible(true) end
 end end
 function awm()
 gg.setRanges(gg.REGION_ANONYMOUS)
@@ -359,6 +319,10 @@ end
 
 gg.clearResults(true)
 
+function magic()
+TBO("unity.so","63AA3C","00000000562505E300000000552545E3011A96ED014A9DED000A23EE00000000025A9DED00000000022A25EE030A8DED041A8DED052A8DED480095E5011080E2026080E211F253E716F252E7A33F83E0A22F82E0833083E0031041E00C308DE2822082E0000183E0022046E0011183E0004A90ED022183E00000000000000000413AB1EEC00AB5EE10FAF1EE00000000C01AB5EE0000000010FAF1EE00000000431AB04E113A95EDC01AB4EE10FAF1EE00000000000000000000000000000000")
+gg.toast("Done ✅")
+end
 function esp()
 gps = gg.multiChoice({
 'Antenna Đầu (Đăng nhập)',
@@ -504,27 +468,12 @@ end
 G = " OFF "
 function speed()
   if G == " OFF " then
-    gg["setVisible"](false)
-    gg["setRanges"](gg.REGION_ANONYMOUS)
-    gg["getResults"](gg["getResultsCount"]())
-    gg["clearResults"]()
-    gg["setRanges"](gg.REGION_ANONYMOUS)
-    gg["searchNumber"]("0.0329~0.033", gg.TYPE_FLOAT)
-    gg["refineNumber"]("0.0329~0.033", gg.TYPE_FLOAT)
-    t10 = gg["getResults"](gg["getResultsCount"]())
-    gg["setValues"](t10)
-    gg["editAll"]("0.061", gg.TYPE_FLOAT)
-    gg["clearResults"]()
-    gg["toast"]("Speed X10✅")
+    TBO("il2cpp.so","2277190","0000A0E31EFF2FE1")
+    gg.toast("👻 Ghost ✅")
     G = " ON "
   elseif G == " ON " then
-    gg["setValues"](t10)
-    gg["editAll"]("0.0329~0.033", gg.TYPE_DWORD)
-    gg["toast"]("Speed Off❌")
-    gg["clearResults"]()
-    gg["clearResults"]()
-    gg["processResume"]()
-    gg["setVisible"](false)
+    TBO("il2cpp.so","2277190","0100A0E31EFF2FE1")
+    gg.toast("👻 Ghost ❌")
     G = " OFF "
   end
 end
