@@ -1,6 +1,6 @@
 local GetProgressInfo = gg.getTargetInfo()
 local GetVersionCode = GetProgressInfo.versionCode
-if GetVersionCode ~= "2019118399" then
+if GetVersionCode ~= "2019118396" then
 gg.alert("Download Free Fire 32Bit Obb 96")
 os.exit()
 gg.exit()
