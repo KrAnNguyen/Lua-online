@@ -380,7 +380,7 @@ m = gg.multiChoice({
 'Aim awm (Sảnh/Đăng nhập)',
 'Nhẹ tâm (Sảnh/Đăng nhập)',
 'Headshot mỗi bụng (Trong trận)',
-'Headshot dang tay (RISK BAN ⛔)',
+'Headshot dang tay (Đăng nhập)',
 'Quay về',
 })
 if m == nil then gg.toast('HNhat') else
